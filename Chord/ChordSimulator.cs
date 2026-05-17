@@ -11,7 +11,8 @@ public class ChordSimulator
 		while (sortedIds.Count < nodeCount) {
 			sortedIds.Add(this._rand.Next());
 		}
-		
+
+		this._nodes.Capacity = sortedIds.Count;
 		foreach (var id in sortedIds) {
 			this._nodes.Add(new ChordNode(id));
 		}
@@ -45,7 +46,7 @@ public class ChordSimulator
 				right = mid - 1;
 			}
 		}
-		return _nodes[left];
+		return this._nodes[left];
 	}
 
 	//todo: отказаться от списка hopCount (?)
@@ -74,7 +75,7 @@ public class ChordSimulator
 
 		for (int i = 0; i < queryCount; i++) {
 			int key = this._rand.Next();
-			var startNode = _nodes[this._rand.Next(_nodes.Count)];
+			var startNode = this._nodes[this._rand.Next(this._nodes.Count)];
 			var (_, hops) = startNode.FindSuccessor(key);
 			hopCounts.Add(hops);
 		}
