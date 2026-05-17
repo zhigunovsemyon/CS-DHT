@@ -2,9 +2,10 @@
 
 public class ChordNode
 {
-	private const int M = 32; // Используем 32-битное пространство ID
+	// 32-битное пространство ID
+	private const int M = 32; 
 
-	public int Id { get; }
+	public int Id { get; init; }
 
 	public ChordNode Successor { get; set; }
 
@@ -21,37 +22,38 @@ public class ChordNode
 	}
 
 	// Быстрый поиск (используется для тестов)
-	public (ChordNode node, int hops) FindSuccessor(int id, int hops = 0)
+	public (ChordNode node, int hops) FindSuccessor(int id) => this.FindSuccessor(id, 0);
+
+	private (ChordNode node, int hops) FindSuccessor(int id, int hops)
 	{
-		if (IsInRangeIE(id, this.Id, this.Successor.Id)) {
+		static bool IsInRangeWithEnd(int val, int start, int end) =>
+			(start < end) 
+				? (val > start && val <= end) 
+				: (val > start || val <= end);
+
+		if (IsInRangeWithEnd(id, this.Id, this.Successor.Id)) {
 			return (this.Successor, hops + 1);
 		}
 
-		ChordNode closest = this.ClosestPrecedingNode(id);
-		if (closest == this) {
-			return (this.Successor, hops + 1);
-		}
-
-		return closest.FindSuccessor(id, hops + 1);
+		var closestPrecedingNode = this.ClosestPrecedingNode(id);
+		return (closestPrecedingNode == this) 
+			? (this.Successor, hops + 1)
+			: closestPrecedingNode.FindSuccessor(id, hops + 1);
 	}
 
 	private ChordNode ClosestPrecedingNode(int id)
 	{
+		static bool IsInRangeWithoutEnd(int val, int start, int end) =>
+			(start < end) 
+				? (val > start && val < end) 
+				: (val > start || val < end);
+
 		for (int i = M - 1; i >= 0; i--) {
-			if (this.FingerTable[i] != null && IsInRangeEE(this.FingerTable[i].Id, this.Id, id)) {
+			bool inRange = IsInRangeWithoutEnd(this.FingerTable[i].Id, this.Id, id);
+			if ((this.FingerTable[i] != null) && inRange) {
 				return this.FingerTable[i];
 			}
 		}
 		return this;
 	}
-
-	private static bool IsInRangeEE(int val, int start, int end) =>
-		(start < end) 
-			? (val > start && val < end) 
-			: (val > start || val < end);
-
-	private static bool IsInRangeIE(int val, int start, int end) =>
-		(start < end) 
-			? (val > start && val <= end) 
-			: (val > start || val <= end);
 }
