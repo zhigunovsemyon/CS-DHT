@@ -48,10 +48,10 @@ public class ChordNode
 				? (val > start && val < end) 
 				: (val > start || val < end);
 
-		for (int i = M - 1; i >= 0; i--) {
-			bool inRange = IsInRangeWithoutEnd(this.FingerTable[i].Id, this.Id, id);
-			if ((this.FingerTable[i] != null) && inRange) {
-				return this.FingerTable[i];
+		foreach (var el in this.FingerTable.Reverse()) { 
+			bool inRange = IsInRangeWithoutEnd(el.Id, this.Id, id);
+			if ((el != null) && inRange) {
+				return el;
 			}
 		}
 		return this;
