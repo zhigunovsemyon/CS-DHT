@@ -46,12 +46,14 @@ public class ChordSimulator
 	{
 		int left = 0;
 		int right = this._nodes.Count - 1;
-		if (id > this._nodes.Last().Id || id <= this._nodes[0].Id) {
+
+		if ((id > this._nodes.Last().Id) || (id <= this._nodes[0].Id)) {
 			return this._nodes[0];
 		}
 
 		while (left <= right) {
 			int mid = left + (right - left) / 2;
+
 			if (this._nodes[mid].Id < id) {
 				left = mid + 1;
 			}
@@ -107,13 +109,17 @@ public class ChordSimulator
 		var distribution = new Dictionary<int, int>();
 		for (int i = 0; i < 10_000; i++) {
 			int key = i * 100_000;
-			var responsible = this.FastBinarySearchSuccessor(key);
-			if (!distribution.ContainsKey(responsible.Id)) {
-				distribution[responsible.Id] = 0;
+			var responsibleId = this.FastBinarySearchSuccessor(key).Id;
+
+			if (!distribution.TryGetValue(responsibleId, out int value)) {
+				value = 0;
+				distribution[responsibleId] = value;
 			}
-			distribution[responsible.Id]++;
+			distribution[responsibleId] = ++value;
 		}
-		Console.WriteLine($"Равномерность (нагрузка): узел-лидер держит {distribution.Values.Max()} ключей из теста");
+
+		var maxVal = distribution.Values.Max();
+		Console.WriteLine($"Равномерность (нагрузка): узел-лидер держит {maxVal} ключей из теста");
 	}
 
 }
