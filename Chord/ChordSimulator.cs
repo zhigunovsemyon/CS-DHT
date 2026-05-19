@@ -5,7 +5,7 @@ public class ChordSimulator
 	private readonly List<ChordNode> _nodes = [];
 	private readonly Random _rand = new();
 
-	public void BuildNetwork(int nodeCount)
+	private void createNodesList(int nodeCount)
 	{
 		var sortedIds = new SortedSet<int>();
 		while (sortedIds.Count < nodeCount) {
@@ -16,17 +16,30 @@ public class ChordSimulator
 		foreach (var id in sortedIds) {
 			this._nodes.Add(new ChordNode(id));
 		}
+	}
 
+	private void assignSuccessors()
+	{
 		for (int i = 0; i < this._nodes.Count; i++) {
 			this._nodes[i].Successor = this._nodes[(i + 1) % this._nodes.Count];
 		}
+	}
 
+	private void makeFingerTables()
+	{
 		foreach (var node in this._nodes) {
-			for (int i = 0; i < 32; i++) {
+			for (int i = 0; i < ChordNode.M; i++) {
 				int fingerStart = node.Id + (int)Math.Pow(2, i);
 				node.FingerTable[i] = this.FastBinarySearchSuccessor(fingerStart);
 			}
 		}
+	}
+
+	public void BuildNetwork(int nodeCount)
+	{
+		this.createNodesList(nodeCount);
+		this.assignSuccessors();
+		this.makeFingerTables();
 	}
 
 	private ChordNode FastBinarySearchSuccessor(int id)
