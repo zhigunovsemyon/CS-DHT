@@ -1,5 +1,6 @@
 ﻿namespace CS_DHT.Chord;
 
+//todo: работать со значениями, а не ключами
 public class ChordNode
 {
 	// 32-битное пространство ID
