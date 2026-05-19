@@ -4,7 +4,7 @@
 public class ChordNode
 {
 	// 32-битное пространство ID
-	private const int M = 32; 
+	public const int M = 32; 
 
 	public int Id { get; init; }
 
