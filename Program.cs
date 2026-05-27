@@ -25,7 +25,10 @@ static void benchmarks()
 
 static void printInfo()
 {
-	Console.WriteLine("TODO: информация");
+	Console.WriteLine("Программа-демонстрация алгоритов распределённого хэширования");
+	Console.WriteLine("Нажмите 1 для вывода теории");
+	Console.WriteLine("Нажмите 2 для прохождения тестов");
+	Console.WriteLine("Нажмите 3 для запуска бенчмарков");
 }
 
 static void main()
