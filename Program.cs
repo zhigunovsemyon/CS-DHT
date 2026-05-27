@@ -33,11 +33,13 @@ static void printInfo()
 
 static void main()
 {
+	const char ESC = (char)27;
+
 	for (; ; ) {
 		Console.Clear();
 		printInfo();
 		switch (Console.ReadKey(true).KeyChar) {
-		case (char)27:
+		case ESC:
 			return;
 		case '1':
 			theory();
