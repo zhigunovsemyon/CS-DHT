@@ -9,7 +9,7 @@ static void tests()
 static void theory()
 {
 	Console.Clear();
-	throw new NotImplementedException("theory()");
+	Theory.Show();
 }
 
 static void benchmarks()
