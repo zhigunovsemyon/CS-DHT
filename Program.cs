@@ -14,18 +14,41 @@ static void theory()
 
 static void benchmarks()
 {
+	Console.Clear();
 	var benchmarks = Benchmarks.BuildNetworks(10_000);
 	Console.WriteLine("Сети построены");
 
 	benchmarks.RunBenchmarks(100_000);
 	Console.Write("\nНажмите любую кнопку");
-	Console.ReadKey();
-	Console.Clear();
+	Console.ReadKey(true);
+}
+
+static void printInfo()
+{
+	Console.WriteLine("TODO: информация");
 }
 
 static void main()
 {
-	benchmarks();
+	for (; ; ) {
+		Console.Clear();
+		printInfo();
+		switch (Console.ReadKey(true).KeyChar) {
+		case (char)27:
+			return;
+		case '1':
+			theory();
+			break;
+		case '2':
+			tests();
+			break;
+		case '3':
+			benchmarks();
+			break;
+		default:
+			continue;
+		}
+	}
 }
 
 main();
