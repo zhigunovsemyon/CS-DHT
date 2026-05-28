@@ -1,18 +1,23 @@
 ﻿using CS_DHT;
 
+const char ESC = (char)27;
+const int NETWORK_SIZE = 10_000;
+const int QUERY_COUNT = 100_000;
+const int QUESTION_COUNT = 10;
+
 static void benchmarks()
 {
-	var benchmarks = Benchmarks.BuildNetworks(10_000);
+	var benchmarks = Benchmarks.BuildNetworks(NETWORK_SIZE);
 	Console.WriteLine("Сети построены");
 
-	benchmarks.RunBenchmarks(100_000);
+	benchmarks.RunBenchmarks(QUERY_COUNT);
 	Console.Write("\nНажмите любую кнопку");
 	Console.ReadKey(true);
 }
 
 static void printInfo()
 {
-	Console.WriteLine("Программа-демонстрация алгоритов распределённого хэширования");
+	Console.WriteLine("Программа-демонстрация алгоритмов распределённого хэширования");
 	Console.WriteLine("Нажмите 1 для вывода теории");
 	Console.WriteLine("Нажмите 2 для прохождения тестов");
 	Console.WriteLine("Нажмите 3 для запуска бенчмарков");
@@ -20,8 +25,6 @@ static void printInfo()
 
 static void main()
 {
-	const char ESC = (char)27;
-
 	for (; ; ) {
 		Console.Clear();
 		printInfo();
@@ -34,7 +37,7 @@ static void main()
 			Theory.Show();
 			break;
 		case '2':
-			new Tests(10).RunTests();
+			Tests.GetTests(QUESTION_COUNT).RunTests();
 			break;
 		case '3':
 			benchmarks();
