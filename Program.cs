@@ -2,19 +2,11 @@
 
 static void tests()
 {
-	Console.Clear();
 	throw new NotImplementedException("tests()");
-}
-
-static void theory()
-{
-	Console.Clear();
-	Theory.Show();
 }
 
 static void benchmarks()
 {
-	Console.Clear();
 	var benchmarks = Benchmarks.BuildNetworks(10_000);
 	Console.WriteLine("Сети построены");
 
@@ -38,11 +30,13 @@ static void main()
 	for (; ; ) {
 		Console.Clear();
 		printInfo();
-		switch (Console.ReadKey(true).KeyChar) {
+		var ch = Console.ReadKey(true).KeyChar;
+		Console.Clear();
+		switch (ch) {
 		case ESC:
 			return;
 		case '1':
-			theory();
+			Theory.Show();
 			break;
 		case '2':
 			tests();
