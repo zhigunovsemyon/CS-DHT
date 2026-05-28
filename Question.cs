@@ -14,7 +14,7 @@ public class Question
 	public Question(string text, int rightIdx, string[] answers)
 	{
 		this.Text = text;
-		var rightAnswer = answers[rightIdx];
+		var rightAnswer = answers[rightIdx - 1];
 		this._answers = [..answers.OrderBy(_ => _random)];
 
 		for (int i = 0; i < this._answers.Length; i++) {
