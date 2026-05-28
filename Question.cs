@@ -19,7 +19,7 @@ public class Question
 
 		for (int i = 0; i < this._answers.Length; i++) {
 			if (rightAnswer == this._answers[i]) {
-				this._rightIdx = i;
+				this._rightIdx = i + 1;
 				break;
 			}
 		}
