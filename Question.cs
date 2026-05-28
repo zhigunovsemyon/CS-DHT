@@ -25,6 +25,5 @@ public class Question
 		}
 	}
 
-	bool IsRight(int index) => this._rightIdx == index;
-	
+	public bool IsRight(int index) => this._rightIdx == index;	
 }

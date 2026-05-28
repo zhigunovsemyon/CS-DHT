@@ -1,10 +1,5 @@
 ﻿using CS_DHT;
 
-static void tests()
-{
-	throw new NotImplementedException("tests()");
-}
-
 static void benchmarks()
 {
 	var benchmarks = Benchmarks.BuildNetworks(10_000);
@@ -39,7 +34,7 @@ static void main()
 			Theory.Show();
 			break;
 		case '2':
-			tests();
+			new Tests(10).RunTests();
 			break;
 		case '3':
 			benchmarks();
