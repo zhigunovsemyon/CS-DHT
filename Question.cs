@@ -15,7 +15,7 @@ public class Question
 	{
 		this.Text = text;
 		var rightAnswer = answers[rightIdx - 1];
-		this._answers = [..answers.OrderBy(_ => _random)];
+		this._answers = [..answers.OrderBy(_ => _random.Next())];
 
 		for (int i = 0; i < this._answers.Length; i++) {
 			if (rightAnswer == this._answers[i]) {
