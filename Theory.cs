@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace CS_DHT;
+﻿namespace CS_DHT;
 
 public static class Theory
 {
