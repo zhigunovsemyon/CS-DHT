@@ -2,7 +2,6 @@
 
 public class Tests
 {
-	private static readonly Random _random = new();
 
 	private readonly Question[] _questions = [
 		new Question("Какова главная цель консистентного хеширования в DHT?", 1, [
@@ -22,9 +21,15 @@ public class Tests
 
 	public IEnumerable<Question> Questions { get; init; } 
 	
-	public Tests(int count)
+	private Tests(int count)
 	{ 
-		this.Questions = this._questions.OrderBy(_ => _random.Next()).Take(count);
+		var random = new Random();
+		this.Questions = this._questions.OrderBy(_ => random.Next()).Take(count);
+	}
+
+	public static Tests GetTests(int count)
+	{
+		return new Tests(count);
 	}
 
 	public void RunTests()
