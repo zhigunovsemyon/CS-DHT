@@ -1,4 +1,6 @@
-﻿namespace CS_DHT;
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace CS_DHT;
 
 public static class Theory
 {
@@ -54,7 +56,7 @@ public static class Theory
 
 	private static void ShowHashing()
 	{
-		string[] text = {
+		string[] text = [
 			"Хэширование — процесс, преобразовающий входные данные " +
 			"в соответствии с некоторым алгоритмом. " +
 			"Занимаются же хэшированием так называемые хэш-функции." +
@@ -70,13 +72,13 @@ public static class Theory
 			"Другой распространённой проблемой хэширования являются коллизии " +
 			"— ситуации, когда от хэш-функция производит одинаковые значения от двух разных ключей. " +
 			"Есть два основных пути решения проблемы коллизии: метод цепочек и открытая адресация"
-		};
+		];
 		Theory.PrintText(text);
 	}
 
 	private static void ShowDHT()
 	{
-		string[] text = {
+		string[] text = [
 			"Распределённая хэш-таблица (DHT — Distributed Hash Table) " +
 			"является распределённой системой, предостовляющей поиск по ключу. " + 
 			"Пары ключ-значение хранятся в DHT таким образом, что любой узел " +
@@ -90,13 +92,13 @@ public static class Theory
 
 			"Существует несколько систем, реализующих DHT, такие как:" +
 			" Chord, Content-addressable network, Pastry и Tapestry"
-		};
+		];
 		Theory.PrintText(text);
 	}
 
 	private static void ShowCAN()
 	{
-		string[] text = {
+		string[] text = [
 			"Content Addressable Network (CAN) – распределенная, децентрализованная" +
 			" инфраструктура P2P, которая обеспечивает функциональность хеш-таблицы" +
 			" в масштабах Интернета.",
@@ -117,13 +119,13 @@ public static class Theory
 			"точки назначения на пространстве координат. При этом сначала узел определяет, " +
 			"какая соседняя зона является наиболее близкой к точке назначения, а затем через " +
 			"таблицу маршрутизации ищет IP адрес узла, отвечающего за эту зону."
-		};
+		];
 		Theory.PrintText(text);
 	}
 
 	private static void ShowChord()
 	{
-		string[] text = {
+		string[] text = [
 			"В алгоритме Chord ключи назначаются на узлы, а те, в свою очередь, " +
 			"отвечают за сохранность данных под этими ключами. Для назначения ключей используется " +
 			"согласованное хэширование (consistent hashing). Оно примечательно тем, что когда " +
@@ -145,7 +147,7 @@ public static class Theory
 
 			"При включении в систему узла n, ключи, назначенные некоторому потомку n " +
 			"передаются уже непосредственно n. При удалении n узла, его ключи передаются потомку n."
-		};
+		];
 		Theory.PrintText(text);
 	}
 
@@ -159,7 +161,7 @@ public static class Theory
 		throw new NotImplementedException();
 	}
 
-	private static void PrintText(string[] text)
+	private static void PrintText(IEnumerable<string> text)
 	{
 		foreach (string s in text) {
 			Console.WriteLine(s);
