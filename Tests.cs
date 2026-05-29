@@ -156,10 +156,7 @@ public class Tests
 		this.Questions = this._questions.OrderBy(_ => random.Next()).Take(count);
 	}
 
-	public static Tests GetTests(int count)
-	{
-		return new Tests(count);
-	}
+	public static Tests GetTests(int count) => new(count);
 
 	public void RunTests()
 	{
@@ -195,7 +192,7 @@ public class Tests
 			if (ch == ESC) {
 				return false;
 			}
-			if (ch < '0' || ch > '9') {
+			if (ch < '1' || ch > '0' + question.Answers.Count()) {
 				continue;
 			}
 			return question.IsRight(ch - '0');
