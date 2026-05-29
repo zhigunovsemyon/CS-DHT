@@ -50,10 +50,10 @@ public class PastryNode(int id)
 	public (PastryNode node, int hops) Route(int targetId)
 	{
 		PastryNode currentNode = this;
-		int hops = 0;
 		var visited = new HashSet<int>(); // Защита от бесконечных циклов
 
 		// Ограничитель на случай ошибок в логике
+		int hops = 0;
 		while (hops < 100) {
 			if (currentNode.Id == targetId || visited.Contains(currentNode.Id)) {
 				return (currentNode, hops);
@@ -116,28 +116,28 @@ public class PastryNode(int id)
 
 	private bool IsInLeafSetRange(int targetId)
 	{
-		if (LeafSet.Count == 0) {
+		if (this.LeafSet.Count == 0) {
 			return false;
 		}
-		return targetId >= LeafSet.Min(n => n.Id) && targetId <= LeafSet.Max(n => n.Id);
+		return targetId >= this.LeafSet.Min(n => n.Id) && targetId <= this.LeafSet.Max(n => n.Id);
 	}
 
-	public void InitializeTables(List<PastryNode> allNodes)
+	public void InitializeTables(IEnumerable<PastryNode> allNodes)
 	{
 		// Берем ближайших соседей по числовому значению
-		this.LeafSet = allNodes
-			.Where(n => n.Id != this.Id)
-			.OrderBy(n => Math.Abs(n.Id - this.Id))
-			.Take(LeafSetSize)
-			.ToList();
+		int thisId = this.Id;
+		this.LeafSet = [..allNodes
+			.Where(n => n.Id != thisId)
+			.OrderBy(n => Math.Abs(n.Id - thisId))
+			.Take(PastryNode.LeafSetSize)];
 
 		foreach (var node in allNodes) {
-			if (node.Id == this.Id) {
+			if (node.Id == thisId) {
 				continue;
 			}
 
-			int l = PastryNode.CommonPrefixLength(this.Id, node.Id);
-			int digit = GetDigit(node.Id, l);
+			int l = PastryNode.CommonPrefixLength(thisId, node.Id);
+			int digit = PastryNode.GetDigit(node.Id, l);
 
 			// В симуляции: если ячейка пуста или новый узел "лучше" (ближе)
 			if (this.RoutingTable[l, digit] == null) {
